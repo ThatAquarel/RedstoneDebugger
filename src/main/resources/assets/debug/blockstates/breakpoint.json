@@ -1,0 +1,100 @@
+{
+  "variants": {
+    "powered=false,channel=0": {
+      "model": "debug:block/breakpoint_0"
+    },
+    "powered=false,channel=1": {
+      "model": "debug:block/breakpoint_1"
+    },
+    "powered=false,channel=2": {
+      "model": "debug:block/breakpoint_2"
+    },
+    "powered=false,channel=3": {
+      "model": "debug:block/breakpoint_3"
+    },
+    "powered=false,channel=4": {
+      "model": "debug:block/breakpoint_4"
+    },
+    "powered=false,channel=5": {
+      "model": "debug:block/breakpoint_5"
+    },
+    "powered=false,channel=6": {
+      "model": "debug:block/breakpoint_6"
+    },
+    "powered=false,channel=7": {
+      "model": "debug:block/breakpoint_7"
+    },
+    "powered=false,channel=8": {
+      "model": "debug:block/breakpoint_8"
+    },
+    "powered=false,channel=9": {
+      "model": "debug:block/breakpoint_9"
+    },
+    "powered=false,channel=10": {
+      "model": "debug:block/breakpoint_10"
+    },
+    "powered=false,channel=11": {
+      "model": "debug:block/breakpoint_11"
+    },
+    "powered=false,channel=12": {
+      "model": "debug:block/breakpoint_12"
+    },
+    "powered=false,channel=13": {
+      "model": "debug:block/breakpoint_13"
+    },
+    "powered=false,channel=14": {
+      "model": "debug:block/breakpoint_14"
+    },
+    "powered=false,channel=15": {
+      "model": "debug:block/breakpoint_15"
+    },
+    "powered=true,channel=0": {
+      "model": "debug:block/breakpoint_powered_0"
+    },
+    "powered=true,channel=1": {
+      "model": "debug:block/breakpoint_powered_1"
+    },
+    "powered=true,channel=2": {
+      "model": "debug:block/breakpoint_powered_2"
+    },
+    "powered=true,channel=3": {
+      "model": "debug:block/breakpoint_powered_3"
+    },
+    "powered=true,channel=4": {
+      "model": "debug:block/breakpoint_powered_4"
+    },
+    "powered=true,channel=5": {
+      "model": "debug:block/breakpoint_powered_5"
+    },
+    "powered=true,channel=6": {
+      "model": "debug:block/breakpoint_powered_6"
+    },
+    "powered=true,channel=7": {
+      "model": "debug:block/breakpoint_powered_7"
+    },
+    "powered=true,channel=8": {
+      "model": "debug:block/breakpoint_powered_8"
+    },
+    "powered=true,channel=9": {
+      "model": "debug:block/breakpoint_powered_9"
+    },
+    "powered=true,channel=10": {
+      "model": "debug:block/breakpoint_powered_10"
+    },
+    "powered=true,channel=11": {
+      "model": "debug:block/breakpoint_powered_11"
+    },
+    "powered=true,channel=12": {
+      "model": "debug:block/breakpoint_powered_12"
+    },
+    "powered=true,channel=13": {
+      "model": "debug:block/breakpoint_powered_13"
+    },
+    "powered=true,channel=14": {
+      "model": "debug:block/breakpoint_powered_14"
+    },
+    "powered=true,channel=15": {
+      "model": "debug:block/breakpoint_powered_15"
+    }
+  }
+}
