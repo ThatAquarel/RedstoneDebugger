@@ -17,7 +17,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-import static com.aquarel.debugger.Main.ZMQ_PUBLISHER;
 import static com.aquarel.debugger.Main.getTick;
 
 //TODO: fix deprecation warning on neighborUpdate, scheduledTick and emitsRedstonePower methods
@@ -46,9 +45,9 @@ public class Breakpoint extends Block {
             world.setBlockState(pos, state.with(POWERED, world.isReceivingRedstonePower(pos)));
         }
 
-        int channel = world.getBlockState(pos).get(CHANNEL);
-        boolean powered = world.getBlockState(pos).get(POWERED);
-        ZMQ_PUBLISHER.send(getTick(), channel, powered ? 1 : 0);
+//        int channel = world.getBlockState(pos).get(CHANNEL);
+//        boolean powered = world.getBlockState(pos).get(POWERED);
+//        ZMQ_PUBLISHER.send(getTick(), channel, powered ? 1 : 0);
     }
 
     @Override

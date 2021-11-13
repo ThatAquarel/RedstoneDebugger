@@ -1,7 +1,6 @@
 package com.aquarel.debugger;
 
 import com.aquarel.debugger.block.Breakpoint;
-import com.aquarel.debugger.network.ZMQPublisher;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -16,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 public class Main implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger("modid");
     public static final Breakpoint BREAKPOINT = new Breakpoint(FabricBlockSettings.of(Material.METAL).strength(0.1f));
-    public static final ZMQPublisher ZMQ_PUBLISHER = new ZMQPublisher();
 
     private static int game_tick;
 
