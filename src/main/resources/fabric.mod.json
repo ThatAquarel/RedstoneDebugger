@@ -1,18 +1,17 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "redstone_debugger",
   "version": "${version}",
   "name": "Redstone Debugger",
-  "description": "",
+  "description": "Adds a block that monitors redstone signals",
   "authors": [
     "aquarel"
   ],
   "contact": {
-    "homepage": "https://github.com/ThatAquarel/RedstoneDebugger",
     "sources": "https://github.com/ThatAquarel/RedstoneDebugger"
   },
   "license": "MIT",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/redstone_debugger/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [

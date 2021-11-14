@@ -16,7 +16,7 @@ public class Main implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        Identifier identifier = new Identifier("debug", "breakpoint");
+        Identifier identifier = new Identifier("redstone_debugger", "breakpoint");
 
         Registry.register(Registry.BLOCK, identifier, BREAKPOINT);
         Registry.register(Registry.ITEM, identifier, new BlockItem(BREAKPOINT, new FabricItemSettings().group(ItemGroup.REDSTONE)));
