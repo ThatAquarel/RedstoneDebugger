@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "redstone_debugger:block/breakpoint_powered_14"
-  }
-}

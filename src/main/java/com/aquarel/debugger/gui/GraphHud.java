@@ -73,7 +73,7 @@ public class GraphHud extends DrawableHelper {
 
         GraphStateManager graphStateManager = GraphStateManager.getInstance();
 
-        float tick_width = width / (this.client.getWindow().getScaledWidth() * 4f);
+        float tick_width = width / 2000f;
 
         for (int i = 0; i < GRAPH_ENABLED_CHANNELS; i++) {
             int y_offset = i * CHANNEL_HEIGHT;
@@ -92,7 +92,6 @@ public class GraphHud extends DrawableHelper {
                 if (x1 > width) {
                     break;
                 }
-
                 int x2 = (int) (x1 + (current_state.time_ms - previous_state.time_ms) * tick_width);
                 x2 = Math.min(width, x2);
 

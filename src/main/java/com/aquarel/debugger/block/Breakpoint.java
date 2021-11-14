@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
@@ -16,6 +17,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 //TODO: fix deprecation warning on neighborUpdate, scheduledTick and emitsRedstonePower methods
 @SuppressWarnings("deprecation")
@@ -40,13 +43,19 @@ public class Breakpoint extends Block {
     @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
         if (!world.isClient) {
-            if (state.get(POWERED) != world.isReceivingRedstonePower(pos)) {
-                world.setBlockState(pos, state.cycle(POWERED), Block.NOTIFY_LISTENERS);
+            world.setBlockState(pos, state.with(POWERED, world.isReceivingRedstonePower(pos)));
+        }
 
-                int channel = world.getBlockState(pos).get(CHANNEL);
-                boolean powered = world.getBlockState(pos).get(POWERED);
-                GraphStateManager.getInstance().updateState(channel, new GraphState(Util.getMeasuringTimeMs(), powered ? 1 : 0));
-            }
+        int channel = world.getBlockState(pos).get(CHANNEL);
+        boolean powered = world.getBlockState(pos).get(POWERED);
+//        GraphStateManager.getInstance().updateState(channel, new GraphState(GAME_TICK, powered ? 1 : 0));
+        GraphStateManager.getInstance().updateState(channel, new GraphState(Util.getMeasuringTimeMs(), powered ? 1 : 0));
+    }
+
+    @Override
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        if (state.get(POWERED) && !world.isReceivingRedstonePower(pos)) {
+            world.setBlockState(pos, state.cycle(POWERED), 2);
         }
     }
 

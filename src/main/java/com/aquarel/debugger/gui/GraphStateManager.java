@@ -1,15 +1,13 @@
 package com.aquarel.debugger.gui;
 
 import com.aquarel.debugger.block.Breakpoint;
-import net.minecraft.util.Util;
-import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
 
 public class GraphStateManager {
     private static final GraphStateManager INSTANCE = new GraphStateManager();
 
-    public static final int BUFFER_SIZE = 40;
+    public static final int BUFFER_SIZE = 20;
 
     private final ArrayList<ArrayList<GraphState>> graphStates = new ArrayList<>();
 
