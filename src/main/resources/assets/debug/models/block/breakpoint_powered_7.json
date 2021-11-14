@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "debug:block/breakpoint_powered_7"
-  }
-}
