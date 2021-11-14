@@ -6,13 +6,12 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.MetricsData;
 import net.minecraft.util.math.AffineTransformation;
 import net.minecraft.util.math.Matrix4f;
 
 public class GraphHud extends DrawableHelper {
     private final MinecraftClient client;
-    private final TextRenderer textRenderer;
+//    private final TextRenderer textRenderer;
 
     private static final int BACKGROUND_COLOR = -0x6FAFAFB0;
     private static final String LOCATION = "graph";
@@ -32,7 +31,7 @@ public class GraphHud extends DrawableHelper {
 
     public GraphHud(MinecraftClient client) {
         this.client = client;
-        this.textRenderer = client.textRenderer;
+//        this.textRenderer = client.textRenderer;
     }
 
     public void render(MatrixStack matrices) {

@@ -1,6 +1,8 @@
 package com.aquarel.debugger;
 
 import com.aquarel.debugger.block.Breakpoint;
+import com.aquarel.debugger.gui.GraphState;
+import com.aquarel.debugger.gui.GraphStateManager;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -12,11 +14,13 @@ import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+
 public class Main implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger("modid");
     public static final Breakpoint BREAKPOINT = new Breakpoint(FabricBlockSettings.of(Material.METAL).strength(0.1f));
 
-    private static int game_tick;
+    public static int GAME_TICK = 0;
 
     @Override
     public void onInitialize() {
@@ -27,10 +31,14 @@ public class Main implements ModInitializer {
     }
 
     public static void tick() {
-        game_tick++;
-    }
+        GAME_TICK++;
 
-    public static int getTick() {
-        return game_tick;
+        ArrayList<GraphState> states = GraphStateManager.getInstance().getGraph(0);
+        if (states.size() > 0) {
+            for (GraphState state : states) {
+                System.out.print(state.game_tick + " ");
+            }
+            System.out.println();
+        }
     }
 }

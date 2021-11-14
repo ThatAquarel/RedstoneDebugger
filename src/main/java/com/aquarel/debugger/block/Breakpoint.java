@@ -1,5 +1,7 @@
 package com.aquarel.debugger.block;
 
+import com.aquarel.debugger.gui.GraphState;
+import com.aquarel.debugger.gui.GraphStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,15 +19,15 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-import static com.aquarel.debugger.Main.getTick;
+import static com.aquarel.debugger.Main.GAME_TICK;
 
 //TODO: fix deprecation warning on neighborUpdate, scheduledTick and emitsRedstonePower methods
 @SuppressWarnings("deprecation")
 public class Breakpoint extends Block {
-    public static int channelCount = 16;
+    public static int CHANNEL_COUNT = 16;
 
     public static final BooleanProperty POWERED = BooleanProperty.of("powered");
-    public static final IntProperty CHANNEL = IntProperty.of("channel", 0, channelCount - 1);
+    public static final IntProperty CHANNEL = IntProperty.of("channel", 0, CHANNEL_COUNT - 1);
 
     public Breakpoint(Settings settings) {
         super(settings);
@@ -45,9 +47,10 @@ public class Breakpoint extends Block {
             world.setBlockState(pos, state.with(POWERED, world.isReceivingRedstonePower(pos)));
         }
 
-//        int channel = world.getBlockState(pos).get(CHANNEL);
-//        boolean powered = world.getBlockState(pos).get(POWERED);
+        int channel = world.getBlockState(pos).get(CHANNEL);
+        boolean powered = world.getBlockState(pos).get(POWERED);
 //        ZMQ_PUBLISHER.send(getTick(), channel, powered ? 1 : 0);
+        GraphStateManager.getInstance().updateState(channel, new GraphState(GAME_TICK, powered ? 1 : 0));
     }
 
     @Override
