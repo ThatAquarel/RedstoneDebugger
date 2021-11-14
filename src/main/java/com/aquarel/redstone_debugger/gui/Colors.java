@@ -1,8 +1,8 @@
-package com.aquarel.debugger.gui;
+package com.aquarel.redstone_debugger.gui;
 
-import com.aquarel.debugger.util.ColorConverter;
+import com.aquarel.redstone_debugger.util.ColorConverter;
 
-import static com.aquarel.debugger.block.Breakpoint.CHANNEL_COUNT;
+import static com.aquarel.redstone_debugger.block.Breakpoint.CHANNEL_COUNT;
 
 public class Colors {
     public static final int BACKGROUND_COLOR = -0x6FAFAFB0; // transparent grey

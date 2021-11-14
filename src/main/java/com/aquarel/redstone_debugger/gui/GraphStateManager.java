@@ -1,6 +1,6 @@
-package com.aquarel.debugger.gui;
+package com.aquarel.redstone_debugger.gui;
 
-import com.aquarel.debugger.block.Breakpoint;
+import com.aquarel.redstone_debugger.block.Breakpoint;
 
 import java.util.ArrayList;
 

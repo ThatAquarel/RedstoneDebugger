@@ -1,7 +1,7 @@
-package com.aquarel.debugger.block;
+package com.aquarel.redstone_debugger.block;
 
-import com.aquarel.debugger.gui.GraphState;
-import com.aquarel.debugger.gui.GraphStateManager;
+import com.aquarel.redstone_debugger.gui.GraphState;
+import com.aquarel.redstone_debugger.gui.GraphStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;

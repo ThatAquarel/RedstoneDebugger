@@ -1,4 +1,4 @@
-package com.aquarel.debugger.gui;
+package com.aquarel.redstone_debugger.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
@@ -11,7 +11,7 @@ import net.minecraft.util.math.Matrix4f;
 
 import java.util.ArrayList;
 
-import static com.aquarel.debugger.gui.Colors.PALETTE;
+import static com.aquarel.redstone_debugger.gui.Colors.PALETTE;
 
 public class GraphHud extends DrawableHelper {
     private final MinecraftClient client;

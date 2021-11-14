@@ -2,7 +2,6 @@
   "schemaVersion": 1,
   "id": "modid",
   "version": "${version}",
-
   "name": "Redstone Debugger",
   "description": "",
   "authors": [
@@ -12,27 +11,21 @@
     "homepage": "https://github.com/ThatAquarel/RedstoneDebugger",
     "sources": "https://github.com/ThatAquarel/RedstoneDebugger"
   },
-
   "license": "MIT",
   "icon": "assets/modid/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.aquarel.debugger.Main"
+      "com.aquarel.redstone_debugger.Main"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "mixins.redstone_debugger.json"
   ],
-
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",
     "minecraft": "1.17.x",
     "java": ">=16"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }

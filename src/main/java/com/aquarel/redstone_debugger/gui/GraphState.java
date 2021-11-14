@@ -1,4 +1,4 @@
-package com.aquarel.debugger.gui;
+package com.aquarel.redstone_debugger.gui;
 
 public class GraphState {
     public long time_ms;

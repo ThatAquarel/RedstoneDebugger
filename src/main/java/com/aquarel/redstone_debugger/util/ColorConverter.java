@@ -1,4 +1,4 @@
-package com.aquarel.debugger.util;
+package com.aquarel.redstone_debugger.util;
 
 
 public class ColorConverter {
