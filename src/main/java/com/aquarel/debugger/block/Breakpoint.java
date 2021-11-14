@@ -12,6 +12,7 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-import static com.aquarel.debugger.Main.GAME_TICK;
+//import static com.aquarel.debugger.Main.GAME_TICK;
 
 //TODO: fix deprecation warning on neighborUpdate, scheduledTick and emitsRedstonePower methods
 @SuppressWarnings("deprecation")
@@ -49,7 +50,8 @@ public class Breakpoint extends Block {
 
         int channel = world.getBlockState(pos).get(CHANNEL);
         boolean powered = world.getBlockState(pos).get(POWERED);
-        GraphStateManager.getInstance().updateState(channel, new GraphState(GAME_TICK, powered ? 1 : 0));
+//        GraphStateManager.getInstance().updateState(channel, new GraphState(GAME_TICK, powered ? 1 : 0));
+        GraphStateManager.getInstance().updateState(channel, new GraphState(Util.getMeasuringTimeMs(), powered ? 1 : 0));
     }
 
     @Override

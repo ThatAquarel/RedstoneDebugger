@@ -20,7 +20,7 @@ public class Main implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger("modid");
     public static final Breakpoint BREAKPOINT = new Breakpoint(FabricBlockSettings.of(Material.METAL).strength(0.1f));
 
-    public static int GAME_TICK = 0;
+//    public static int GAME_TICK = 0;
 
     @Override
     public void onInitialize() {
@@ -31,12 +31,12 @@ public class Main implements ModInitializer {
     }
 
     public static void tick() {
-        GAME_TICK++;
+//        GAME_TICK++;
 
-//        ArrayList<GraphState> states = GraphStateManager.getInstance().getGraph(0);
+//        ArrayList<GraphState> states = new ArrayList<>(GraphStateManager.getInstance().getGraph(0));
 //        if (states.size() > 0) {
 //            for (GraphState state : states) {
-//                System.out.print(state.game_tick + ":" + state.power + " ");
+//                System.out.print(state.time_ms + ":" + state.power + " ");
 //            }
 //            System.out.println();
 //        }

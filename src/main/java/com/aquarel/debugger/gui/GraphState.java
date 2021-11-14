@@ -1,11 +1,11 @@
 package com.aquarel.debugger.gui;
 
 public class GraphState {
-    public int game_tick;
+    public long time_ms;
     public int power;
 
-    public GraphState(int game_tick, int power) {
-        this.game_tick = game_tick;
+    public GraphState(long time_ms, int power) {
+        this.time_ms = time_ms;
         this.power = power;
     }
 }

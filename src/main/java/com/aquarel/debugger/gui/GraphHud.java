@@ -5,12 +5,12 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.AffineTransformation;
 import net.minecraft.util.math.Matrix4f;
 
 import java.util.ArrayList;
 
-import static com.aquarel.debugger.Main.GAME_TICK;
 import static com.aquarel.debugger.gui.Colors.PALETTE;
 import static com.aquarel.debugger.gui.GraphStateManager.BUFFER_SIZE;
 
@@ -65,7 +65,7 @@ public class GraphHud extends DrawableHelper {
             this.drawHorizontalLine(matrices, 0, width - 1, i * CHANNEL_HEIGHT, Colors.ACCENT_MAIN);
         }
 
-        int tick_width = width / BUFFER_SIZE;
+        float tick_width = width / 1000f;
 
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
         BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
@@ -89,7 +89,7 @@ public class GraphHud extends DrawableHelper {
                 GraphState current_state = graphStates.get(j);
                 int power = current_state.power;
 
-                int x1 = (GAME_TICK - current_state.game_tick - 1) * tick_width;
+                int x1 = (int) ((Util.getMeasuringTimeMs() - current_state.time_ms - 1) * tick_width);
                 int x2 = x1, y1 = 0, y2 = 0;
                 if (x1 > width) {
                     break;
@@ -99,7 +99,7 @@ public class GraphHud extends DrawableHelper {
 
                 if ((j + 1) < graphStates.size()) {
                     GraphState previous_state = graphStates.get(j + 1);
-                    x2 += (current_state.game_tick - previous_state.game_tick) * tick_width;
+                    x2 += (current_state.time_ms - previous_state.time_ms) * tick_width;
                     x2 = Math.min(width, x2);
 
                     if (previous_state.power != current_state.power) {
