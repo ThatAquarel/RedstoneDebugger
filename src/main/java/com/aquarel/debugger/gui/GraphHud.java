@@ -62,8 +62,6 @@ public class GraphHud extends DrawableHelper {
             this.drawHorizontalLine(matrices, 0, width - 1, i * CHANNEL_HEIGHT, Colors.ACCENT_MAIN);
         }
 
-        float tick_width = width / 2000f;
-
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
         BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
         RenderSystem.enableBlend();
@@ -74,6 +72,9 @@ public class GraphHud extends DrawableHelper {
         Matrix4f matrix4f = AffineTransformation.identity().getMatrix();
 
         GraphStateManager graphStateManager = GraphStateManager.getInstance();
+
+        float tick_width = width / 2000f;
+
         for (int i = 0; i < GRAPH_ENABLED_CHANNELS; i++) {
             int y_offset = i * CHANNEL_HEIGHT;
 
@@ -82,30 +83,19 @@ public class GraphHud extends DrawableHelper {
                 continue;
             }
 
-            for (int j = 0; j < graphStates.size(); j++) {
+            for (int j = 0; (j + 1) < graphStates.size(); j++) {
                 GraphState current_state = graphStates.get(j);
-                int power = current_state.power;
+                GraphState previous_state = graphStates.get(j + 1);
+                int power = previous_state.power;
 
                 int x1 = (int) ((Util.getMeasuringTimeMs() - current_state.time_ms - 1) * tick_width);
-                int x2 = x1, y1 = 0, y2 = 0;
                 if (x1 > width) {
                     break;
                 }
+                int x2 = (int) (x1 + (current_state.time_ms - previous_state.time_ms) * tick_width);
+                x2 = Math.min(width, x2);
 
-                int[] rgb = PALETTE[i];
-
-                if ((j + 1) < graphStates.size()) {
-                    GraphState previous_state = graphStates.get(j + 1);
-                    x2 += (current_state.time_ms - previous_state.time_ms) * tick_width;
-                    x2 = Math.min(width, x2);
-
-                    if (previous_state.power != current_state.power) {
-                        drawRectangle(bufferBuilder, matrix4f, x2, y_offset + 5, Math.min(width, x2 + 2), y_offset + CHANNEL_HEIGHT - 5, rgb);
-                    }
-
-                    power = previous_state.power;
-                }
-
+                int y1 = 0, y2 = 0;
                 if (power == 0) {
                     y1 = y_offset + CHANNEL_HEIGHT - 7;
                     y2 = y_offset + CHANNEL_HEIGHT - 5;
@@ -114,6 +104,10 @@ public class GraphHud extends DrawableHelper {
                     y2 = y_offset + 7;
                 }
 
+                int[] rgb = PALETTE[i];
+                if (previous_state.power != current_state.power) {
+                    drawRectangle(bufferBuilder, matrix4f, x2, y_offset + 5, Math.min(width, x2 + 2), y_offset + CHANNEL_HEIGHT - 5, rgb);
+                }
                 drawRectangle(bufferBuilder, matrix4f, x1, y1, x2, y2, rgb);
             }
         }
