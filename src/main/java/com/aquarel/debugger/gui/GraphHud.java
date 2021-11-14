@@ -1,6 +1,5 @@
 package com.aquarel.debugger.gui;
 
-import com.aquarel.debugger.util.ColorConverter;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -12,8 +11,7 @@ import net.minecraft.util.math.Matrix4f;
 import java.util.ArrayList;
 
 import static com.aquarel.debugger.Main.GAME_TICK;
-import static com.aquarel.debugger.Main.tick;
-import static com.aquarel.debugger.block.Breakpoint.CHANNEL_COUNT;
+import static com.aquarel.debugger.gui.Colors.PALETTE;
 import static com.aquarel.debugger.gui.GraphStateManager.BUFFER_SIZE;
 
 public class GraphHud extends DrawableHelper {
@@ -26,8 +24,6 @@ public class GraphHud extends DrawableHelper {
     private static int GRAPH_ENABLED_CHANNELS = 4;
 
     private static final int CHANNEL_HEIGHT = 30;
-
-    private final int[][] colors;
 
     public static void setGraphEnabled(boolean graphEnabled_) {
         GRAPH_ENABLED = graphEnabled_;
@@ -48,17 +44,6 @@ public class GraphHud extends DrawableHelper {
     public GraphHud(MinecraftClient client) {
         this.client = client;
 //        this.textRenderer = client.textRenderer;
-        colors = new int[CHANNEL_COUNT][3];
-        float step = 360f / CHANNEL_COUNT;
-
-        for (int i = 0; i < CHANNEL_COUNT; i++) {
-            float hue = i * step;
-            float[] rgb = ColorConverter.hslToRgb(hue / 360, 1f, 0.5f);
-
-            for (int j = 0; j < rgb.length; j++) {
-                colors[i][j] = (int) (rgb[j] * 255) & 255;
-            }
-        }
     }
 
     public void render(MatrixStack matrices) {
@@ -74,9 +59,7 @@ public class GraphHud extends DrawableHelper {
         RenderSystem.disableDepthTest();
 
         int height = GRAPH_ENABLED_CHANNELS * CHANNEL_HEIGHT;
-        int window_height = this.client.getWindow().getScaledHeight();
 
-        // draw background & lines
         fill(matrices, 0, 0, width, height, Colors.BACKGROUND_COLOR);
         for (int i = 1; i <= GRAPH_ENABLED_CHANNELS; i++) {
             this.drawHorizontalLine(matrices, 0, width - 1, i * CHANNEL_HEIGHT, Colors.ACCENT_MAIN);
@@ -106,12 +89,26 @@ public class GraphHud extends DrawableHelper {
                 GraphState current_state = graphStates.get(j);
                 int power = current_state.power;
 
-                int x_offset = (GAME_TICK - current_state.game_tick - 1) * tick_width;
-                if (x_offset > width) {
+                int x1 = (GAME_TICK - current_state.game_tick - 1) * tick_width;
+                int x2 = x1, y1 = 0, y2 = 0;
+                if (x1 > width) {
                     break;
                 }
 
-                int x2 = x_offset, y1 = 0, y2 = 0;
+                int[] rgb = PALETTE[i];
+
+                if ((j + 1) < graphStates.size()) {
+                    GraphState previous_state = graphStates.get(j + 1);
+                    x2 += (current_state.game_tick - previous_state.game_tick) * tick_width;
+                    x2 = Math.min(width, x2);
+
+                    if (previous_state.power != current_state.power) {
+                        drawRectangle(bufferBuilder, matrix4f, x2 - 2, y_offset + 5, x2, y_offset + CHANNEL_HEIGHT - 5, rgb);
+                    }
+
+                    power = previous_state.power;
+                }
+
                 if (power == 0) {
                     y1 = y_offset + CHANNEL_HEIGHT - 7;
                     y2 = y_offset + CHANNEL_HEIGHT - 5;
@@ -120,24 +117,7 @@ public class GraphHud extends DrawableHelper {
                     y2 = y_offset + 7;
                 }
 
-                int[] rgb = colors[i];
-
-                if ((j + 1) < graphStates.size()) {
-                    GraphState previous_state = graphStates.get(j + 1);
-                    x2 += (current_state.game_tick - previous_state.game_tick) * tick_width;
-                    x2 = Math.min(width, x2);
-
-                    if (previous_state.power != current_state.power) {
-                        bufferBuilder.vertex(matrix4f, x2, y_offset + 5, 0.0F).color(rgb[0], rgb[1], rgb[2], 255).next();
-                        bufferBuilder.vertex(matrix4f, x2, y_offset + CHANNEL_HEIGHT - 5, 0.0F).color(rgb[0], rgb[1], rgb[2], 255).next();
-                        bufferBuilder.vertex(matrix4f, x2 + 2, y_offset + CHANNEL_HEIGHT - 5, 0.0F).color(rgb[0], rgb[1], rgb[2], 255).next();
-                        bufferBuilder.vertex(matrix4f, x2 + 2, y_offset + 5, 0.0F).color(rgb[0], rgb[1], rgb[2], 255).next();
-                    }
-                }
-                bufferBuilder.vertex(matrix4f, x_offset, y1, 0.0F).color(rgb[0], rgb[1], rgb[2], 255).next();
-                bufferBuilder.vertex(matrix4f, x_offset, y2, 0.0F).color(rgb[0], rgb[1], rgb[2], 255).next();
-                bufferBuilder.vertex(matrix4f, x2, y2, 0.0F).color(rgb[0], rgb[1], rgb[2], 255).next();
-                bufferBuilder.vertex(matrix4f, x2, y1, 0.0F).color(rgb[0], rgb[1], rgb[2], 255).next();
+                drawRectangle(bufferBuilder, matrix4f, x1, y1, x2, y2, rgb);
             }
         }
 
@@ -145,5 +125,12 @@ public class GraphHud extends DrawableHelper {
         BufferRenderer.draw(bufferBuilder);
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
+    }
+
+    private void drawRectangle(BufferBuilder bufferBuilder, Matrix4f matrix4f, int x1, int y1, int x2, int y2, int[] rgb) {
+        bufferBuilder.vertex(matrix4f, x1, y1, 0.0F).color(rgb[0], rgb[1], rgb[2], 255).next();
+        bufferBuilder.vertex(matrix4f, x1, y2, 0.0F).color(rgb[0], rgb[1], rgb[2], 255).next();
+        bufferBuilder.vertex(matrix4f, x2, y2, 0.0F).color(rgb[0], rgb[1], rgb[2], 255).next();
+        bufferBuilder.vertex(matrix4f, x2, y1, 0.0F).color(rgb[0], rgb[1], rgb[2], 255).next();
     }
 }

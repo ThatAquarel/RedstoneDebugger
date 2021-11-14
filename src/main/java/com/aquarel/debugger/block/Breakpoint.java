@@ -49,7 +49,6 @@ public class Breakpoint extends Block {
 
         int channel = world.getBlockState(pos).get(CHANNEL);
         boolean powered = world.getBlockState(pos).get(POWERED);
-//        ZMQ_PUBLISHER.send(getTick(), channel, powered ? 1 : 0);
         GraphStateManager.getInstance().updateState(channel, new GraphState(GAME_TICK, powered ? 1 : 0));
     }
 
