@@ -12,11 +12,9 @@ import net.minecraft.util.math.Matrix4f;
 import java.util.ArrayList;
 
 import static com.aquarel.debugger.gui.Colors.PALETTE;
-import static com.aquarel.debugger.gui.GraphStateManager.BUFFER_SIZE;
 
 public class GraphHud extends DrawableHelper {
     private final MinecraftClient client;
-//    private final TextRenderer textRenderer;
 
     private static final String LOCATION = "graph";
 
@@ -43,7 +41,6 @@ public class GraphHud extends DrawableHelper {
 
     public GraphHud(MinecraftClient client) {
         this.client = client;
-//        this.textRenderer = client.textRenderer;
     }
 
     public void render(MatrixStack matrices) {
@@ -65,7 +62,7 @@ public class GraphHud extends DrawableHelper {
             this.drawHorizontalLine(matrices, 0, width - 1, i * CHANNEL_HEIGHT, Colors.ACCENT_MAIN);
         }
 
-        float tick_width = width / 1000f;
+        float tick_width = width / 2000f;
 
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
         BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
@@ -103,7 +100,7 @@ public class GraphHud extends DrawableHelper {
                     x2 = Math.min(width, x2);
 
                     if (previous_state.power != current_state.power) {
-                        drawRectangle(bufferBuilder, matrix4f, x2 - 2, y_offset + 5, x2, y_offset + CHANNEL_HEIGHT - 5, rgb);
+                        drawRectangle(bufferBuilder, matrix4f, x2, y_offset + 5, Math.min(width, x2 + 2), y_offset + CHANNEL_HEIGHT - 5, rgb);
                     }
 
                     power = previous_state.power;

@@ -20,8 +20,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-//import static com.aquarel.debugger.Main.GAME_TICK;
-
 //TODO: fix deprecation warning on neighborUpdate, scheduledTick and emitsRedstonePower methods
 @SuppressWarnings("deprecation")
 public class Breakpoint extends Block {

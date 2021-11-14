@@ -8,6 +8,7 @@ public class GraphStateManager {
     private static final GraphStateManager INSTANCE = new GraphStateManager();
 
     public static final int BUFFER_SIZE = 20;
+    private static final int RANGE_MS = 10;
 
     private final ArrayList<ArrayList<GraphState>> graphStates = new ArrayList<>();
 
@@ -18,21 +19,23 @@ public class GraphStateManager {
     }
 
     public void updateState(int id, GraphState new_state) {
-
         ArrayList<GraphState> current_state = graphStates.get(id);
 
-        ArrayList<Long> current_ticks = new ArrayList<>();
-        for (GraphState state_ : current_state) {
-            current_ticks.add(state_.time_ms);
-        }
-
-        if (current_ticks.contains(new_state.time_ms)) {
-            int i = current_ticks.indexOf(new_state.time_ms);
-            if (current_state.get(i).power != new_state.power) {
-                current_state.set(i, new_state);
-            }
+        if (current_state.get(0).power == new_state.power) {
             return;
         }
+
+//        for (GraphState state : current_state) {
+//            if ((state.time_ms - RANGE_MS) > new_state.time_ms
+//                    || new_state.time_ms > (state.time_ms + RANGE_MS)) {
+//                continue;
+//            }
+//
+//            if (state.power != new_state.power) {
+//                current_state.set(current_state.indexOf(state), new_state);
+//            }
+//            return;
+//        }
 
         for (int removable = current_state.size() - BUFFER_SIZE + 1; removable > 0; removable--) {
             current_state.remove(current_state.size() - 1);
