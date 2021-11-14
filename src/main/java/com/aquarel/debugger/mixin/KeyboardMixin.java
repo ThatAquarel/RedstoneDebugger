@@ -19,6 +19,10 @@ public class KeyboardMixin {
         if (window == this.client.getWindow().getHandle()) {
             if (InputUtil.isKeyPressed(this.client.getWindow().getHandle(), GLFW.GLFW_KEY_F6)) {
                 GraphHud.setGraphEnabled(!GraphHud.getGraphEnabled());
+            } else if (InputUtil.isKeyPressed(this.client.getWindow().getHandle(), GLFW.GLFW_KEY_F7)) {
+                GraphHud.setGraphEnabledChannels(GraphHud.getGraphEnabledChannels() + 1);
+            } else if (InputUtil.isKeyPressed(this.client.getWindow().getHandle(), GLFW.GLFW_KEY_F8)) {
+                GraphHud.setGraphEnabledChannels(GraphHud.getGraphEnabledChannels() - 1);
             }
         }
     }

@@ -32,6 +32,9 @@ public class ColorConverter {
     }
 
     private static float _v(float m1, float m2, float hue) {
+        if (hue < 0) {
+            hue = (1f + hue);
+        }
         hue = hue % 1f;
 
         if (hue < ONE_SIXTH) {

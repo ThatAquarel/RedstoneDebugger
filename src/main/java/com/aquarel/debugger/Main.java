@@ -33,12 +33,12 @@ public class Main implements ModInitializer {
     public static void tick() {
         GAME_TICK++;
 
-        ArrayList<GraphState> states = GraphStateManager.getInstance().getGraph(0);
-        if (states.size() > 0) {
-            for (GraphState state : states) {
-                System.out.print(state.game_tick + " ");
-            }
-            System.out.println();
-        }
+//        ArrayList<GraphState> states = GraphStateManager.getInstance().getGraph(0);
+//        if (states.size() > 0) {
+//            for (GraphState state : states) {
+//                System.out.print(state.game_tick + ":" + state.power + " ");
+//            }
+//            System.out.println();
+//        }
     }
 }

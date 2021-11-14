@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class GraphStateManager {
     private static final GraphStateManager INSTANCE = new GraphStateManager();
 
-    private static final int BUFFER_SIZE = 20;
+    public static final int BUFFER_SIZE = 20;
 
     private final ArrayList<ArrayList<GraphState>> graphStates = new ArrayList<>();
 
